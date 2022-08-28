@@ -1,8 +1,17 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import { RelayEnvironmentProvider } from "react-relay/hooks";
+import { useEnvironment } from "../relay/relayEnvironment";
+
+import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  const environment = useEnvironment(pageProps.initialRecords);
+
+  return (
+    <RelayEnvironmentProvider environment={environment}>
+      <Component {...pageProps} />
+    </RelayEnvironmentProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
